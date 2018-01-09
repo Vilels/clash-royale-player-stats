@@ -1,6 +1,7 @@
 package com.example.vilela.clashroyaleplayerstats;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,12 @@ public class MainActivity extends Activity {
         super.onStop();
     }
 
+    private void mudarDeEcra(Class<?> subAtividade, String tag){
+        Intent x = new Intent(this, subAtividade);
+        x.putExtra("aTag", tag);
+        startActivity(x);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +40,7 @@ public class MainActivity extends Activity {
         buttonSearch.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View view) {
+                mudarDeEcra(Main2Activity.class,editTextTag.getText().toString());
 
             }
         });

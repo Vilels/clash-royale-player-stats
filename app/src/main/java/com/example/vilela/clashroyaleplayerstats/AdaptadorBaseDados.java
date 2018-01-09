@@ -71,4 +71,8 @@ public class AdaptadorBaseDados {
         values.put("name", oName);
         return database.insert("players", null, values);
     }
+
+    public int deletePlayerTagName(Integer _id) {
+        return database.delete("players", "_id", new String[]{_id.toString()});
+    }
 }
