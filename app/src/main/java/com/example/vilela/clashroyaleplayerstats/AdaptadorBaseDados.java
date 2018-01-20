@@ -48,7 +48,19 @@ public class AdaptadorBaseDados {
         return names;
     }
 
-    public int obterTodosCampos(List<Integer> osIds, List<String> osPlayerTag, List<String> osName) {
+    public List<String> obterTodasTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        Cursor cursor = obterTodosRegistos();
+        if (cursor.moveToFirst()) {
+            do {
+                tags.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return tags;
+    }
+
+    public int obterTodosCampos(List<Integer> osIds, List<String> asTags, List<String> osName) {
         String[] colunas = new String[23];
         colunas[0] = "_id";
         colunas[1] = "playerTag";
@@ -57,12 +69,19 @@ public class AdaptadorBaseDados {
         if (c.moveToFirst()) {
             do {
                 osIds.add(c.getInt(0));
-                osPlayerTag.add(c.getString(1));
+                asTags.add(c.getString(1));
                 osName.add(c.getString(2));
             } while (c.moveToNext());
         }
         c.close();
         return osIds.size();
+    }
+
+    public boolean existe(String umaTag){
+        Cursor cursor = database.rawQuery("select playerTag from players where playerTag=?", new String[]{umaTag});
+        boolean b = cursor.getCount()>=1;
+        cursor.close();
+        return b;
     }
 
     public long insertPlayerTagName(String aPlayerTag, String oName) {
@@ -72,7 +91,10 @@ public class AdaptadorBaseDados {
         return database.insert("players", null, values);
     }
 
-    public int deletePlayerTagName(Integer _id) {
-        return database.delete("players", "_id", new String[]{_id.toString()});
+    public int deletePlayer (String aTag){
+        String whereClause = "playerTag = ?";
+        String[] whereArgs = new String[1];
+        whereArgs[0] = aTag;
+        return database.delete("players", whereClause, whereArgs);
     }
 }
