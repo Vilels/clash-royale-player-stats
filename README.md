@@ -8,3 +8,9 @@ do jogador, experiencia etc.
 sempre a introduzir a tag para aceder a informação pretendida. Estes jogadores gravados
 serão mostrados numa lista e com um simples clique é possivel aceder ao perfil de cada
 um.
+
+Alguns exemplos de tags para testar a app:
+2VYQUGUGC
+2VYQUGUG
+P9J829GR
+80RGJ2UYY
